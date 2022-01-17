@@ -15,9 +15,11 @@ namespace Array_Exercises
                 "2. Reverse Array\r\n" +
                 "3. Sum Array\r\n" +
                 "4. Copy Elements\r\n" +
-                "5. Count Duplicates\r\n");
+                "5. Count Duplicates\r\n" +
+                "6. Distinct Elements\r\n" +
+                "7. SortArrays\r\n");
 
-            switch (FetchInt(1,5))
+            switch (FetchInt(1,7))
             {
                 case 1:
                     PrintArray();
@@ -34,6 +36,13 @@ namespace Array_Exercises
                 case 5:
                     CountDuplicates();
                     break;
+                case 6:
+                    CountDistinctElements();
+                    break;
+                case 7:
+                    SortArrays();
+                    break;
+
             }
 
 
@@ -116,9 +125,71 @@ namespace Array_Exercises
                     duplicateElements.Add(element);
             }
 
-            Console.WriteLine($"The amount of duplicates in the array is: {counter}");
+            Console.WriteLine($"\r\nThe amount of duplicates in the array is: {counter}");
         }
 
+        /*
+         * Exercise 6: Write a program in C# Sharp to print all unique elements in an array.
+         */
+        private static void CountDistinctElements()
+        {
+            int[] array = FetchArray();
+            List<int> distinctElements = new List<int>();
+
+            Console.WriteLine("\r\nThe distinct elements in your array are the following:\r\n");
+
+            foreach (int e in array)
+                if (!distinctElements.Contains(e))
+                {
+                    distinctElements.Add(e);
+                    Console.Write($"{e} ");
+                }
+        }
+
+        /*
+         * Exercise 7: Write a program in C# Sharp to merge two arrays of same size sorted in ascending order.
+         */
+
+        private static void SortArrays()
+        {
+            Console.Clear();
+            Console.Write("Please enter a number of elements (between 1 and 10)" +
+                        " that you would like BOTH your arrays to hold: ");
+
+            int[] array = new int[FetchInt(0, 10)];
+            int[] array2 = new int[array.Length];
+            int[] mergedArray = new int[array.Length * 2];
+
+            Console.Clear();
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                Console.Write($"First Array element {i + 1}: ");
+                array[i] = FetchInt(int.MinValue, int.MaxValue);
+            }
+            
+            Console.WriteLine();
+            
+            for (int i = 0; i < array2.Length; i++)
+            {
+                Console.Write($"Second Array element {i + 1}: ");
+                array2[i] = FetchInt(int.MinValue, int.MaxValue);
+            }
+
+            //merge arrays
+            for (int i = 0; i < array.Length; i++)
+                mergedArray[i] = array[i];
+
+            for (int i = 0; i < array2.Length; i++)
+                mergedArray[array.Length + i] = array2[i];
+
+            //sort merged array
+            Array.Sort(mergedArray);
+
+            //print merged array
+            foreach (int e in mergedArray)
+                Console.Write($"{e} ");
+        }
         #endregion
 
         #region USER-DEFINED-METHODS
